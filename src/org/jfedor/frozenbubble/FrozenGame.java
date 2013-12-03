@@ -239,7 +239,7 @@ public class FrozenGame extends GameScreen {
     currentColor = bubbleManager.nextBubbleIndex(random);
     nextColor    = bubbleManager.nextBubbleIndex(random);
 
-    if (FrozenBubble.getMode() == FrozenBubble.GAME_NORMAL) {
+    if (Preferences.getMode() == FrozenBubble.GAME_NORMAL) {
       nextBubble = new ImageSprite(new Rect(302, 440, 302 + 32, 440 + 32),
                                    bubbles[nextColor]);
     }
@@ -774,7 +774,7 @@ public class FrozenGame extends GameScreen {
 
       for (int i = 0; i < 15; i++) {
         if (lanes[i]) {
-          int color = random.nextInt(FrozenBubble.getDifficulty());
+          int color = random.nextInt(Preferences.getDifficulty());
           BubbleSprite malusBubble = new BubbleSprite(
             new Rect(columnX[i], 44+15*28, 32, 32),
             START_LAUNCH_DIRECTION,
@@ -818,7 +818,7 @@ public class FrozenGame extends GameScreen {
                   double trackball_dx,
                   boolean touch_fire, double touch_x, double touch_y,
                   boolean ats_touch_fire, double ats_touch_dx) {
-    boolean ats = FrozenBubble.getAimThenShoot();
+    boolean ats = Preferences.getAimThenShoot();
 
     if ((ats && ats_touch_fire) || (!ats && touch_fire)) {
       key_fire = true;
@@ -864,7 +864,7 @@ public class FrozenGame extends GameScreen {
       readyToFire = true;
     }
 
-    if (FrozenBubble.getDontRushMe()) {
+    if (Preferences.getDontRushMe()) {
       hurryTime = 1;
     }
 
@@ -905,7 +905,7 @@ public class FrozenGame extends GameScreen {
           currentColor = nextColor;
           nextColor = bubbleManager.nextBubbleIndex(random);
 
-          if (FrozenBubble.getMode() == FrozenBubble.GAME_NORMAL) {
+          if (Preferences.getMode() == FrozenBubble.GAME_NORMAL) {
             nextBubble.changeImage(bubbles[nextColor]);
           }
           else {
@@ -983,7 +983,7 @@ public class FrozenGame extends GameScreen {
       }
     }
 
-    if ((malusBar == null) || FrozenBubble.getCompressor()) {
+    if ((malusBar == null) || Preferences.getCompressor()) {
       if (fixedBubbles == 6) {
         if (blinkDelay < 15) {
           blinkLine(blinkDelay);
@@ -1025,7 +1025,7 @@ public class FrozenGame extends GameScreen {
 
   public void paint(Canvas c, double scale, int dx, int dy) {
     compressor.paint(c, scale, dx, dy);
-    if (FrozenBubble.getMode() == FrozenBubble.GAME_NORMAL) {
+    if (Preferences.getMode() == FrozenBubble.GAME_NORMAL) {
       nextBubble.changeImage(bubbles[nextColor]);
     }
     else {
@@ -1075,7 +1075,7 @@ public class FrozenGame extends GameScreen {
             endOfGame = true;
             soundManager.playSound(FrozenBubble.SOUND_WON);
           }
-          else if ((malusBar == null) || FrozenBubble.getCompressor()) {
+          else if ((malusBar == null) || Preferences.getCompressor()) {
             fixedBubbles++;
             blinkDelay = 0;
 
@@ -1144,7 +1144,7 @@ public class FrozenGame extends GameScreen {
 
       launchBubble.changeColor(currentColor);
 
-      if (FrozenBubble.getMode() == FrozenBubble.GAME_NORMAL)
+      if (Preferences.getMode() == FrozenBubble.GAME_NORMAL)
         nextBubble.changeImage(bubbles[nextColor]);
       else
         nextBubble.changeImage(bubblesBlind[nextColor]);

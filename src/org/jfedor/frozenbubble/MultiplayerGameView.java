@@ -1042,7 +1042,7 @@ class MultiplayerGameView extends SurfaceView implements SurfaceHolder.Callback 
       mHighscoreManager = new HighscoreManager(getContext(),
                                                HighscoreManager.
                                                MULTIPLAYER_DATABASE_NAME);
-      mLevelManager     = new LevelManager(0, FrozenBubble.getDifficulty());
+      mLevelManager     = new LevelManager(0, Preferences.getDifficulty());
       newGame();
     }
 

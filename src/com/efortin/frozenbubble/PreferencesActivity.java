@@ -55,6 +55,7 @@ package com.efortin.frozenbubble;
 import org.jfedor.frozenbubble.BubbleSprite;
 import org.jfedor.frozenbubble.FrozenBubble;
 import org.jfedor.frozenbubble.LevelManager;
+import org.jfedor.frozenbubble.Preferences;
 import org.jfedor.frozenbubble.R;
 
 import android.content.Context;
@@ -158,16 +159,16 @@ public class PreferencesActivity extends PreferenceActivity{
   }
 
   private void setFrozenBubblePrefs() {
-    FrozenBubble.setAdsOn(adsOn);
-    FrozenBubble.setCollision(collision);
-    FrozenBubble.setCompressor(compressor);
-    FrozenBubble.setDifficulty(difficulty);
-    FrozenBubble.setDontRushMe(dontRushMe);
-    FrozenBubble.setFullscreen(fullscreen);
-    FrozenBubble.setMode(gameMode);
-    FrozenBubble.setMusicOn(musicOn);
-    FrozenBubble.setSoundOn(soundOn);
-    FrozenBubble.setTargetMode(targetMode);
+    Preferences.setAdsOn(adsOn);
+    Preferences.setCollision(collision);
+    Preferences.setCompressor(compressor);
+    Preferences.setDifficulty(difficulty);
+    Preferences.setDontRushMe(dontRushMe);
+    Preferences.setFullscreen(fullscreen);
+    Preferences.setMode(gameMode);
+    Preferences.setMusicOn(musicOn);
+    Preferences.setSoundOn(soundOn);
+    Preferences.setTargetMode(targetMode);
 
     SharedPreferences sp = getSharedPreferences(FrozenBubble.PREFS_NAME,
                                                 Context.MODE_PRIVATE);

@@ -53,6 +53,7 @@
 package com.efortin.frozenbubble;
 
 import org.jfedor.frozenbubble.FrozenBubble;
+import org.jfedor.frozenbubble.Preferences;
 import org.jfedor.frozenbubble.R;
 
 import android.app.Activity;
@@ -88,7 +89,7 @@ public class ScrollingCredits extends Activity implements Runnable {
     credits.setTextSize(18.0f);
     // Start the credits music.
     myModPlayer = new ModPlayer(this, R.raw.worldofpeace,
-                                FrozenBubble.getMusicOn(), false);
+                                Preferences.getMusicOn(), false);
     // Post this runnable instance to the scrolling text view.
     credits.postDelayed(this, 100);
   }

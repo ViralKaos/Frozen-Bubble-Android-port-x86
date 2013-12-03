@@ -1041,7 +1041,7 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
         if (game_state == FrozenGame.GAME_NEXT_WON) {
           mShowScores = true;
           pause();
-          if (FrozenBubble.getAdsOn() &&
+          if (Preferences.getAdsOn() &&
               (!mInterstitialShown && (new Random().nextInt(10) == 0))) {
             mInterstitialShown = true;
             Intent intent = new Intent(mContext, InterstitialActivity.class);

@@ -82,7 +82,7 @@ public class SoundManager {
   }
 
   public final void playSound(int sound) {
-    if (FrozenBubble.getSoundOn()) {
+    if (Preferences.getSoundOn()) {
       AudioManager mgr =
         (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
       float volume    = mgr.getStreamVolume   (AudioManager.STREAM_MUSIC);
