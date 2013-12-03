@@ -434,23 +434,14 @@ public class FrozenBubble extends Activity
   private void restoreGamePrefs() {
     SharedPreferences mConfig = getSharedPreferences(PREFS_NAME,
                                                      Context.MODE_PRIVATE);
-    Preferences.adsOn      = mConfig.getBoolean("adsOn",      true                 );
-    Preferences.collision  = mConfig.getInt    ("collision",  BubbleSprite.MIN_PIX );
-    Preferences.compressor = mConfig.getBoolean("compressor", false                );
-    Preferences.difficulty = mConfig.getInt    ("difficulty", LevelManager.MODERATE);
-    Preferences.dontRushMe = mConfig.getBoolean("dontRushMe", false                );
-    Preferences.fullscreen = mConfig.getBoolean("fullscreen", true                 );
-    Preferences.gameMode   = mConfig.getInt    ("gameMode",   GAME_NORMAL          );
-    Preferences.musicOn    = mConfig.getBoolean("musicOn",    true                 );
-    Preferences.soundOn    = mConfig.getBoolean("soundOn",    true                 );
-    Preferences.targetMode = mConfig.getInt    ("targetMode", POINT_TO_SHOOT       );
+    Preferences.restorePreferences(mConfig);
 
     BubbleSprite.setCollisionThreshold(Preferences.collision);
     Preferences.setTargetMode(Preferences.targetMode);
     setTargetModeOrientation();
   }
 
-  private int getScreenOrientation() {
+private int getScreenOrientation() {
     //
     // The method getOrientation() was deprecated in API level 8.
     //

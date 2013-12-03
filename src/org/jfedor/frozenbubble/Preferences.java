@@ -1,5 +1,7 @@
 package org.jfedor.frozenbubble;
 
+import android.content.SharedPreferences;
+
 public class Preferences {
 
 	static boolean adsOn      = true;
@@ -76,5 +78,17 @@ public class Preferences {
 	public synchronized static void setTargetMode(int tm) {
 	    targetMode = tm;
 	  }
+	public static void restorePreferences(SharedPreferences mConfig) {
+		adsOn      = mConfig.getBoolean("adsOn",      true                 );
+	    collision  = mConfig.getInt    ("collision",  BubbleSprite.MIN_PIX );
+	    compressor = mConfig.getBoolean("compressor", false                );
+	    difficulty = mConfig.getInt    ("difficulty", LevelManager.MODERATE);
+	    dontRushMe = mConfig.getBoolean("dontRushMe", false                );
+	    fullscreen = mConfig.getBoolean("fullscreen", true                 );
+	    gameMode   = mConfig.getInt    ("gameMode",   FrozenBubble.GAME_NORMAL          );
+	    musicOn    = mConfig.getBoolean("musicOn",    true                 );
+	    soundOn    = mConfig.getBoolean("soundOn",    true                 );
+	    targetMode = mConfig.getInt    ("targetMode", FrozenBubble.POINT_TO_SHOOT       );
+	}
 
 }
