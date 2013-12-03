@@ -258,8 +258,8 @@ public class FrozenBubble extends Activity
     allowUnpause = false;
     menu.findItem(MENU_COLORBLIND_ON ).setVisible(Preferences.getMode() == GAME_NORMAL);
     menu.findItem(MENU_COLORBLIND_OFF).setVisible(Preferences.getMode() != GAME_NORMAL);
-    menu.findItem(MENU_FULLSCREEN_ON ).setVisible(!Preferences.fullscreen);
-    menu.findItem(MENU_FULLSCREEN_OFF).setVisible(Preferences.fullscreen);
+    menu.findItem(MENU_FULLSCREEN_ON ).setVisible(!Preferences.getFullscreen());
+    menu.findItem(MENU_FULLSCREEN_OFF).setVisible(Preferences.getFullscreen());
     menu.findItem(MENU_SOUND_OPTIONS ).setVisible(true);
     menu.findItem(MENU_TARGET_MODE   ).setVisible(true);
     menu.findItem(MENU_DONT_RUSH_ME  ).setVisible(!Preferences.getDontRushMe());
@@ -279,23 +279,23 @@ public class FrozenBubble extends Activity
         return true;
       case MENU_COLORBLIND_ON:
         Preferences.setMode(GAME_COLORBLIND);
-        editor.putInt("gameMode", Preferences.gameMode);
+        editor.putInt("gameMode", Preferences.getMode());
         editor.commit();
         return true;
       case MENU_COLORBLIND_OFF:
         Preferences.setMode(GAME_NORMAL);
-        editor.putInt("gameMode", Preferences.gameMode);
+        editor.putInt("gameMode", Preferences.getMode());
         editor.commit();
         return true;
       case MENU_FULLSCREEN_ON:
-        Preferences.fullscreen = true;
-        editor.putBoolean("fullscreen", Preferences.fullscreen);
+        Preferences.setFullscreen(true);
+        editor.putBoolean("fullscreen", Preferences.getFullscreen());
         editor.commit();
         setFullscreen();
         return true;
       case MENU_FULLSCREEN_OFF:
-        Preferences.fullscreen = false;
-        editor.putBoolean("fullscreen", Preferences.fullscreen);
+        Preferences.setFullscreen(false);
+        editor.putBoolean("fullscreen", Preferences.getFullscreen());
         editor.commit();
         setFullscreen();
         return true;
@@ -314,12 +314,12 @@ public class FrozenBubble extends Activity
         return true;
       case MENU_DONT_RUSH_ME:
         Preferences.setDontRushMe(true);
-        editor.putBoolean("dontRushMe", Preferences.dontRushMe);
+        editor.putBoolean("dontRushMe", Preferences.getDontRushMe());
         editor.commit();
         return true;
       case MENU_RUSH_ME:
         Preferences.setDontRushMe(false);
-        editor.putBoolean("dontRushMe", Preferences.dontRushMe);
+        editor.putBoolean("dontRushMe", Preferences.getDontRushMe());
         editor.commit();
         return true;
       case MENU_EDITOR:
@@ -436,8 +436,8 @@ public class FrozenBubble extends Activity
                                                      Context.MODE_PRIVATE);
     Preferences.restorePreferences(mConfig);
 
-    BubbleSprite.setCollisionThreshold(Preferences.collision);
-    Preferences.setTargetMode(Preferences.targetMode);
+    BubbleSprite.setCollisionThreshold(Preferences.getCollision());
+    Preferences.setTargetMode(Preferences.getTargetMode());
     setTargetModeOrientation();
   }
 
@@ -626,7 +626,7 @@ private int getScreenOrientation() {
     final int flagFs   = WindowManager.LayoutParams.FLAG_FULLSCREEN;
     final int flagNoFs = WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN;
 
-    if (Preferences.fullscreen) {
+    if (Preferences.getFullscreen()) {
       getWindow().addFlags(flagFs);
       getWindow().clearFlags(flagNoFs);
     }
@@ -668,7 +668,7 @@ private int getScreenOrientation() {
         switch (which) {
           case 0:
             Preferences.setSoundOn(isChecked);
-            editor.putBoolean("soundOn", Preferences.soundOn);
+            editor.putBoolean("soundOn", Preferences.getSoundOn());
             editor.commit();
             break;
           case 1:
@@ -676,7 +676,7 @@ private int getScreenOrientation() {
             if (myModPlayer != null) {
               myModPlayer.setMusicOn(isChecked);
             }
-            editor.putBoolean("musicOn", Preferences.musicOn);
+            editor.putBoolean("musicOn", Preferences.getMusicOn());
             editor.commit();
             break;
         }
@@ -706,7 +706,7 @@ private int getScreenOrientation() {
     // item is selected.
     //
     //
-    .setSingleChoiceItems(R.array.shoot_mode_array, Preferences.targetMode,
+    .setSingleChoiceItems(R.array.shoot_mode_array, Preferences.getTargetMode(),
                           new DialogInterface.OnClickListener() {
       @Override
       public void onClick(DialogInterface builder, int which) {
@@ -732,7 +732,7 @@ private int getScreenOrientation() {
         SharedPreferences sp = getSharedPreferences(PREFS_NAME,
                                                     Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-        editor.putInt("targetMode", Preferences.targetMode);
+        editor.putInt("targetMode", Preferences.getTargetMode());
         editor.commit();
       }
     });
@@ -742,7 +742,7 @@ private int getScreenOrientation() {
   }
 
   private void setTargetModeOrientation() {
-    if ((Preferences.targetMode == ROTATE_TO_SHOOT) &&
+    if ((Preferences.getTargetMode() == ROTATE_TO_SHOOT) &&
         AccelerometerManager.isSupported(getApplicationContext())) {
       AccelerometerManager.startListening(getApplicationContext(),this);
       //
@@ -758,7 +758,7 @@ private int getScreenOrientation() {
       setRequestedOrientation(SCREEN_ORIENTATION_SENSOR_PORTRAIT);
     }
 
-    if ((Preferences.targetMode != ROTATE_TO_SHOOT) && AccelerometerManager.isListening()) {
+    if ((Preferences.getTargetMode() != ROTATE_TO_SHOOT) && AccelerometerManager.isListening()) {
       AccelerometerManager.stopListening();
       setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
     }
